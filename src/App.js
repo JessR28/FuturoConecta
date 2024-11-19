@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, Routes, Link, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import './App.css';
-import logo from './images/logo.png';
+import logo from './images/logo.ico';
 import { getAuth, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { getDoc, doc } from 'firebase/firestore';
@@ -112,11 +112,11 @@ function App() {
       </Routes>
 
       {/* Footer */}
-      <footer id="footering">
+      {/*<footer id="footering">
         <div>
           <p>&copy; 2024 Futuro Conecta. Todos los derechos reservados.</p>
         </div>
-      </footer>
+      </footer>*/}
     </div>
   );
 }

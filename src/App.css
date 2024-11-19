@@ -193,6 +193,7 @@ header {
 footer {
   position: fixed; /* Fija el footer en la parte inferior */
   left: 0;
+  margin-top: auto;  
   bottom: 0; /* Se asegura de que esté en la parte inferior de la página */
   width: 100%; /* Asegura que el footer ocupe todo el ancho */
   background-color: #222; /* Ajusta el color del fondo del footer */

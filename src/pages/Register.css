@@ -13,15 +13,20 @@ body {
 /* Contenedor principal con separación adicional */
 .register-container {
   display: flex;
+  margin: 10px 0 10px 0;
   justify-content: center;
   align-items: flex-start; /* Alínea el formulario hacia la parte superior */
   margin-bottom: 100px; /* Espacio entre el formulario y el footer */
+  padding-bottom: 50px;
+   min-height: 500px;
+  
 }
 
 /* Caja del formulario con fondo blanco y bordes redondeados */
 .register-box {
   background-color: #ffffff;
   padding: 30px;
+  margin-top: 40px;
   border-radius: 8px;
   width: 100%;
   max-width: 320px;
@@ -104,9 +109,39 @@ body {
 
   .register-input {
     padding: 8px;
+    margin-top: 1px;
   }
 
   .register-button {
     padding: 8px;
-  }
+    margin-top: 10px;  }
+}
+
+.show-password-container {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.show-password-container label {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #0a0a0a;
+}
+
+.login-link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #16c79a; /* Ajusta el color según tu diseño */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }

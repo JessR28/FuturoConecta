@@ -1,5 +1,6 @@
 // src/pages/Inicio.js
 import React from 'react';
+
 import './inicio.css'; // Asegúrate de tener este archivo para los estilos
 
 const Inicio = () => {
