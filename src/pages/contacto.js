@@ -45,7 +45,7 @@ const Contacto = () => {
         fecha: new Date(),
       });
       setMensaje('');
-      navigate('/'); // Redirige a la página de inicio
+      navigate('/contacto'); // Redirige a la página de inicio
     } catch (error) {
       console.error('Error al enviar el mensaje:', error);
     }

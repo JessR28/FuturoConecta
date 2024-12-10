@@ -4,59 +4,69 @@ import { Helmet } from 'react-helmet';
 import './App.css';
 import logo from './images/logo.ico';
 import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
 import { getDoc, doc } from 'firebase/firestore';
-import { db } from './firebaseConfig'; // Asegúrate de tener la configuración de Firebase
+import { db } from './firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 // Páginas o componentes
 import Carreras from './pages/carreras';
 import Login from './pages/login';
-import Register from './pages/Register';
+import Register from './pages/register';
 import Inicio from './pages/inicio';
-import AdminDashboard from './pages/AdminDashboard';
+import AdminDashboard from './pages/adminDashboard';
 import Contacto from './pages/contacto';
+import Gastronomia from './pages/gastronomia';
+import Tecnologias from './pages/tecnologias';
+import Biotecnologia from './pages/biotecnologia'; 
 
-// Importa los iconos de react-icons
+// Iconos de react-icons
 import { FaHome, FaChalkboardTeacher, FaEnvelope, FaSignInAlt, FaUserPlus, FaSignOutAlt, FaCog } from 'react-icons/fa';
+
+// Componente para proteger rutas
+const ProtectedRoute = ({ isAuthenticated, children, redirectTo = "/login" }) => {
+  if (!isAuthenticated) return <Navigate to={redirectTo} />;
+  return children;
+};
+
+// Componente para rutas exclusivas de administrador
+const AdminRoute = ({ isAuthenticated, isAdmin, children }) => {
+  if (!isAuthenticated || !isAdmin) return <Navigate to="/" />;
+  return children;
+};
 
 function App() {
   const auth = getAuth();
   const navigate = useNavigate();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false); // Estado para verificar si el usuario es admin
-  const [userLoaded, setUserLoaded] = useState(false); // Estado para verificar si los datos del usuario están cargados
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [userLoaded, setUserLoaded] = useState(false);
 
-  // Verifica si el usuario está autenticado y obtiene el rol
+  // Verificar autenticación y roles del usuario
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         setIsAuthenticated(true);
-
-        // Obtener el rol del usuario desde Firestore
         const userDoc = await getDoc(doc(db, 'usuarios', user.uid));
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          setIsAdmin(userData.rol === 'admin'); // Verifica si el rol es admin
+          setIsAdmin(userData.rol === 'admin');
         }
       } else {
         setIsAuthenticated(false);
-        setIsAdmin(false); // Si no está autenticado, no es admin
+        setIsAdmin(false);
       }
-
-      setUserLoaded(true); // Los datos del usuario han sido cargados
+      setUserLoaded(true);
     });
-
-    // Limpieza del evento de autenticación
     return () => unsubscribe();
   }, [auth]);
 
-  // Función para cerrar sesión
+  // Cerrar sesión
   const handleSignOut = async () => {
     try {
       await signOut(auth);
       setIsAuthenticated(false);
-      setIsAdmin(false); // Resetear estado de admin al cerrar sesión
+      setIsAdmin(false);
       navigate('/login');
     } catch (error) {
       console.error('Error al cerrar sesión:', error.message);
@@ -70,20 +80,19 @@ function App() {
         <link rel="icon" href="images/logo.ico" type="image/x-icon" />
       </Helmet>
 
-      {/* Header y Navbar */}
+      {/* Navbar */}
       <header>
         <nav>
           <div className="logo">
             <img src={logo} alt="Logo Futuro Conecta" />
           </div>
           <ul>
-            <li><Link to="/"><FaHome /> Inicio</Link></li>
-            {isAuthenticated && <li><Link to="/carreras"><FaChalkboardTeacher /> Carreras</Link></li>} {/* Solo visible si está autenticado */}
+            {!isAuthenticated && <li><Link to="/"><FaHome /> Inicio</Link></li>} {/* Solo se muestra si no está autenticado */}
+            {isAuthenticated && <li><Link to="/carreras"><FaChalkboardTeacher /> Carreras</Link></li>}
             <li><Link to="/contacto"><FaEnvelope /> Contacto</Link></li>
-
             {isAuthenticated ? (
               <>
-                {isAdmin && <li><Link to="/AdminDashboard"><FaCog /> Admin Dashboard</Link></li>} {/* Solo visible para admin */}
+                {isAdmin && <li><Link to="/AdminDashboard"><FaCog /> Admin Dashboard</Link></li>}
                 <li><Link to="#" onClick={handleSignOut}><FaSignOutAlt /> Cerrar sesión</Link></li>
               </>
             ) : (
@@ -101,22 +110,54 @@ function App() {
         <Route path="/" element={<Inicio />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/carreras" element={<Carreras />} />
         <Route path="/contacto" element={<Contacto />} />
+        
+        {/* Rutas protegidas para usuarios autenticados */}
+        <Route 
+          path="/carreras" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Carreras />
+            </ProtectedRoute>
+          } 
+        />
 
-        {/* Ruta para AdminDashboard protegida */}
+        {/* Rutas dinámicas de las carreras */}
+        <Route 
+          path="/carrera/gastronomia" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Gastronomia />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/carrera/tecnologias" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Tecnologias />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/carrera/biotecnologia" 
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Biotecnologia />
+            </ProtectedRoute>
+          } 
+        />
+        
+        {/* Ruta exclusiva para administradores */}
         <Route 
           path="/AdminDashboard" 
-          element={userLoaded ? (isAuthenticated && isAdmin ? <AdminDashboard /> : <Navigate to="/" />) : <Navigate to="/" />} 
+          element={
+            <AdminRoute isAuthenticated={isAuthenticated} isAdmin={isAdmin}>
+              <AdminDashboard />
+            </AdminRoute>
+          } 
         />
       </Routes>
-
-      {/* Footer */}
-      {/*<footer id="footering">
-        <div>
-          <p>&copy; 2024 Futuro Conecta. Todos los derechos reservados.</p>
-        </div>
-      </footer>*/}
     </div>
   );
 }

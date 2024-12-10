@@ -3,7 +3,7 @@ import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase
 import { db } from '../firebaseConfig';
 import './carreraDetalle.css';
 
-const Gastronomia = () => {
+const Biotecnologia = () => {
   const [convenios, setConvenios] = useState([]);
   const [nuevoConvenio, setNuevoConvenio] = useState({
     unidadProductiva: '',
@@ -20,7 +20,7 @@ const Gastronomia = () => {
   useEffect(() => {
     const fetchConvenios = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'gastronomia_convenios'));
+        const querySnapshot = await getDocs(collection(db, 'biotecnologia_convenios'));
         const conveniosData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setConvenios(conveniosData);
       } catch (error) {
@@ -60,7 +60,7 @@ const Gastronomia = () => {
     try {
       if (editando) {
         // Si estamos editando, actualizamos el convenio
-        const convenioRef = doc(db, 'gastronomia_convenios', convenioEditadoId);
+        const convenioRef = doc(db, 'biotecnologia_convenios', convenioEditadoId);
         await updateDoc(convenioRef, nuevoConvenio);
         setConvenios(convenios.map(convenio => convenio.id === convenioEditadoId ? { ...convenio, ...nuevoConvenio } : convenio));
         setEditando(false);
@@ -68,7 +68,7 @@ const Gastronomia = () => {
         alert('Convenio actualizado con éxito');
       } else {
         // Si no estamos editando, agregamos un nuevo convenio
-        await addDoc(collection(db, 'gastronomia_convenios'), nuevoConvenio);
+        await addDoc(collection(db, 'biotecnologia_convenios'), nuevoConvenio);
         setConvenios([...convenios, nuevoConvenio]);
         alert('Convenio registrado con éxito');
       }
@@ -96,7 +96,7 @@ const Gastronomia = () => {
   // Eliminar un convenio
   const handleEliminar = async (id) => {
     try {
-      const convenioRef = doc(db, 'gastronomia_convenios', id);
+      const convenioRef = doc(db, 'biotecnologia_convenios', id);
       await deleteDoc(convenioRef);  // Eliminamos el convenio de Firestore
       setConvenios(convenios.filter(convenio => convenio.id !== id));  // Actualizamos la lista de convenios
       alert('Convenio eliminado con éxito');
@@ -107,7 +107,7 @@ const Gastronomia = () => {
 
   return (
     <div className="carrera-detalle">
-      <h1>Convenios de Gastronomía</h1>
+      <h1>Convenios de Biotecnología</h1>
 
       {/* Tabla de convenios */}
       <table className="tabla-convenios">
@@ -159,12 +159,10 @@ const Gastronomia = () => {
           )}
         </tbody>
       </table>
-      
-      
 
       {/* Formulario para registrar o editar un convenio */}
       <form className="formulario-convenio" onSubmit={handleRegistrar}>
-      <h2>Registrar nuevo Convenio de Gastronomía</h2>
+      <h2>Registrar nuevo Convenio de Biotecnología</h2>
         <input
           type="text"
           name="unidadProductiva"
@@ -227,4 +225,4 @@ const Gastronomia = () => {
   );
 };
 
-export default Gastronomia;
+export default Biotecnologia;

@@ -1,0 +1,156 @@
+/* carreraDetalle.css */
+
+/* Estilos generales */
+.carrera-detalle {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    height: calc(100vh - 60px);  /* Ajustar la altura del contenedor para permitir el scroll */
+    overflow-y: auto;  /* Permitir el desplazamiento hacia abajo */
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Estilos del formulario */
+  .formulario-convenio {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formulario-convenio input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 4px;
+  }
+  
+  .formulario-convenio input[type="file"] {
+    padding: 0;
+  }
+  
+  .formulario-convenio button {
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .formulario-convenio button:hover {
+    background-color: #45a049;
+  }
+  
+  .formulario-convenio img {
+    max-width: 150px;
+    height: auto;
+    margin-top: 20px;
+    display: block;  /* Esto hace que la imagen sea un bloque */
+    margin-left: auto;  /* Centra la imagen horizontalmente */
+    margin-right: auto;  /* Centra la imagen horizontalmente */
+  }
+  
+  /* Estilos de la tabla */
+  .tabla-convenios {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px; /* Margen superior para la tabla */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tabla-convenios th,
+  .tabla-convenios td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tabla-convenios th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .tabla-convenios tr:hover {
+    background-color: #f1f1f1;
+    margin-top: 200px;
+  }
+  tr{
+    padding: 0%;
+  }
+  
+  .tabla-convenios img {
+    max-width: 100px;
+    height: auto;
+  }
+  
+  /* Estilos de los botones de acción */
+  .btn-accion {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-accion.editar {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .btn-accion.editar:hover {
+    background-color: #45a049;
+  }
+  
+  .btn-accion.eliminar {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-accion.eliminar:hover {
+    background-color: #e53935;
+  }
+  
+  /* Mensaje cuando no hay convenios */
+  .tabla-convenios td[colspan="7"] {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-style: italic;
+  }
+  
+  /* Agregar espacio de 3cm desde la parte superior para la tabla */
+  .tabla-convenios {
+    margin-top: 3cm;  /* 3 cm de espacio entre la tabla y la parte superior */
+  }
+  
+  /* Permitir que la página sea scrollable */
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;  /* Evitar el desplazamiento horizontal */
+  }
+  
+  html {
+    height: 100%;
+  }
+  

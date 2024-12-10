@@ -3,7 +3,7 @@ import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase
 import { db } from '../firebaseConfig';
 import './carreraDetalle.css';
 
-const Gastronomia = () => {
+const Tecnologias = () => {
   const [convenios, setConvenios] = useState([]);
   const [nuevoConvenio, setNuevoConvenio] = useState({
     unidadProductiva: '',
@@ -20,7 +20,7 @@ const Gastronomia = () => {
   useEffect(() => {
     const fetchConvenios = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'gastronomia_convenios'));
+        const querySnapshot = await getDocs(collection(db, 'tecnologias_convenios'));
         const conveniosData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setConvenios(conveniosData);
       } catch (error) {
@@ -54,13 +54,13 @@ const Gastronomia = () => {
     }
   };
 
-  // Registrar un nuevo convenio
+  // Registrar un nuevo convenio o actualizar uno existente
   const handleRegistrar = async (e) => {
     e.preventDefault();
     try {
       if (editando) {
         // Si estamos editando, actualizamos el convenio
-        const convenioRef = doc(db, 'gastronomia_convenios', convenioEditadoId);
+        const convenioRef = doc(db, 'tecnologias_convenios', convenioEditadoId);
         await updateDoc(convenioRef, nuevoConvenio);
         setConvenios(convenios.map(convenio => convenio.id === convenioEditadoId ? { ...convenio, ...nuevoConvenio } : convenio));
         setEditando(false);
@@ -68,11 +68,12 @@ const Gastronomia = () => {
         alert('Convenio actualizado con éxito');
       } else {
         // Si no estamos editando, agregamos un nuevo convenio
-        await addDoc(collection(db, 'gastronomia_convenios'), nuevoConvenio);
-        setConvenios([...convenios, nuevoConvenio]);
+        await addDoc(collection(db, 'tecnologias_convenios'), nuevoConvenio);
+        setConvenios([...convenios, { ...nuevoConvenio, id: 'nuevo' }]); // Agregamos el nuevo convenio a la lista
         alert('Convenio registrado con éxito');
       }
-
+      
+      // Limpiar el formulario después de registrar o editar
       setNuevoConvenio({
         unidadProductiva: '',
         ubicacion: '',
@@ -83,6 +84,7 @@ const Gastronomia = () => {
       });
     } catch (error) {
       console.error('Error al registrar o actualizar el convenio:', error);
+      alert('Hubo un error al guardar los datos');
     }
   };
 
@@ -96,18 +98,19 @@ const Gastronomia = () => {
   // Eliminar un convenio
   const handleEliminar = async (id) => {
     try {
-      const convenioRef = doc(db, 'gastronomia_convenios', id);
+      const convenioRef = doc(db, 'tecnologias_convenios', id);
       await deleteDoc(convenioRef);  // Eliminamos el convenio de Firestore
       setConvenios(convenios.filter(convenio => convenio.id !== id));  // Actualizamos la lista de convenios
       alert('Convenio eliminado con éxito');
     } catch (error) {
       console.error('Error al eliminar el convenio:', error);
+      alert('Hubo un error al eliminar el convenio');
     }
   };
 
   return (
     <div className="carrera-detalle">
-      <h1>Convenios de Gastronomía</h1>
+      <h1>Convenios de Tecnologías</h1>
 
       {/* Tabla de convenios */}
       <table className="tabla-convenios">
@@ -159,12 +162,10 @@ const Gastronomia = () => {
           )}
         </tbody>
       </table>
-      
-      
 
       {/* Formulario para registrar o editar un convenio */}
       <form className="formulario-convenio" onSubmit={handleRegistrar}>
-      <h2>Registrar nuevo Convenio de Gastronomía</h2>
+      <h2>Registrar nuevo Convenio de Tecnologías</h2>
         <input
           type="text"
           name="unidadProductiva"
@@ -227,4 +228,4 @@ const Gastronomia = () => {
   );
 };
 
-export default Gastronomia;
+export default Tecnologias;
