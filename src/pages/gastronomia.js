@@ -159,7 +159,7 @@ const Gastronomia = () => {
           )}
         </tbody>
       </table>
-      
+              
       
 
       {/* Formulario para registrar o editar un convenio */}
