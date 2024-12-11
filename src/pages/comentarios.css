@@ -1,0 +1,128 @@
+/* Fondo gris claro */
+body {
+    background-image: url(../images/mueble.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Evita el scroll */
+    height: 100vh; /* Asegura que el body ocupe toda la pantalla */
+    margin: 0;
+  }
+  
+  /* Contenedor de la tabla */
+  .container {
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos estén en columna */
+    justify-content: flex-start; /* Alinea hacia la parte superior */
+    align-items: center; /* Centra horizontalmente */
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 20px; /* Ajusta el padding general */
+  }
+  
+  /* Título */
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo de la tabla */
+  /* Estilo de la tabla */
+.table-responsive {
+    width: 100%;
+    max-width: 900px; /* Ajusta el tamaño máximo de la tabla */
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    margin-top: 0; /* Elimina cualquier margen superior adicional */
+    border-collapse: separate; /* Separa las celdas para dar un efecto tridimensional */
+    border-spacing: 0; /* Elimina el espacio entre celdas */
+    border-radius: 8px;
+    overflow: hidden; /* Asegura que el borde redondeado se aplique a toda la tabla */
+    background-color: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Sombra más destacada */
+  }
+  
+  /* Cabecera */
+  .table th {
+    background: linear-gradient(90deg, #16c79a, #7bf6d7); /* Gradiente del encabezado */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    border-bottom: 2px solid #16c79a;
+  }
+  
+  /* Filas */
+  .table td {
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease;
+  }
+  
+  /* Zebra en filas impares */
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Resaltado al pasar el mouse */
+  .table tbody tr:hover {
+    background-color: #e6f7f3; /* Suave verde menta */
+  }
+  
+  /* Bordes laterales destacados */
+  .table th:first-child,
+  .table td:first-child {
+    border-left: 4px solid #16c79a; /* Borde verde en el lado izquierdo */
+  }
+  
+  .table th:last-child,
+  .table td:last-child {
+    border-right: 4px solid #16c79a; /* Borde verde en el lado derecho */
+  }
+  
+  
+  /* Mensaje de no hay mensajes disponibles */
+  .text-center {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-top: 20px;
+  }
+  
+  /* Estilo del botón */
+  .button-back {
+    display: block;
+    width: 200px;
+    padding: 12px;
+    margin: 20px auto;
+    background: linear-gradient(90deg, #16c79a, #7bf6d7);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .button-back:hover {
+    background: linear-gradient(90deg, #7bf6d7, #16c79a);
+  }
+  

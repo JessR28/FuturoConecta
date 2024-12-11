@@ -28,13 +28,20 @@ function Login() {
 
       const user = userCredential.user;
       const userDoc = await getDoc(doc(db, 'usuarios', user.uid));
+
       if (userDoc.exists()) {
         const userData = userDoc.data();
+        
+        // Verificar si existe el rol en los datos del usuario
         if (userData.rol === 'admin') {
-          navigate('/AdminDashboard');
-        } else {
           navigate('/carreras');
+        } else if (userData.rol === 'usuario') {
+          navigate('/login');
+        } else {
+          setError('No se ha definido un rol para este usuario.');
         }
+      } else {
+        setError('Usuario no encontrado en la base de datos.');
       }
     } catch (err) {
       console.error('Error al iniciar sesión:', err);
